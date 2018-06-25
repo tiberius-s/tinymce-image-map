@@ -1,5 +1,5 @@
 # tinymceImageMap TinyMCE Plugin
-
+## WORK IN PROGRESS!
 Welcome stranger! This is a repo containing the tinymceImageMap TinyMCE plugin.
 
 ## The development server
@@ -12,4 +12,4 @@ By running the `npm run build` command Webpack will create a `dist` directory wi
 
 * `plugin.js` - the bundled plugin
 * `plugin.min.js` - the bundles, uglified and minified plugin
-* `LICENSE` - a file explaining the license of your plugin (copied over from `src/LICENSE`) 
+* `LICENSE` - a file explaining the license of your plugin (copied over from `src/LICENSE`)

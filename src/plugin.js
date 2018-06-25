@@ -1,23 +1,48 @@
-import _ from 'lodash';
+import view from "./app/utils/view";
 
-const plugin = (editor) => {
-  editor.addButton('tinymceImageMap', {
-    text: 'tinymceImageMap',
-    icon: false,
-    onclick: () => {
-      // Open window
-      editor.windowManager.open({
-        title: 'tinymceImageMap plugin',
-        body: [
-          { type: 'textbox', name: 'title' }
-        ],
-        onsubmit(e) {
-          // Insert content when the window form is submitted
-          const kebabbyString = _.kebabCase(e.data.title);
-          editor.insertContent(kebabbyString);
+const openDialog = editor => {
+  let isImg = editor.selection.getNode().nodeName === "IMG";
+  if (isImg) {
+    const img = editor.selection.getNode();
+    editor.windowManager.open({
+      title: "Manage Image Maps",
+      body: [
+        {
+          type: "container",
+          layout: "flex",
+          direction: "column",
+          align: "center",
+          html: '<div id="img-map-container"></div>',
+          minHeight: img.height < 800 ? img.height + 100 : 900,
+          minWidth: img.width > 450 ? img.width : 450,
+          autoScroll: true
         }
-      });
-    }
+      ],
+      buttons: [
+        {
+          text: "Done",
+          onclick: "submit"
+        }
+      ],
+      onsubmit() {
+        view.destroy(editor, img);
+      }
+    });
+    view.createDialogHtml().then(() => view.initApp(editor, img));
+  }
+};
+
+const plugin = editor => {
+  editor.addMenuItem("tinymceImageMap", {
+    icon: 'img-map-icon',
+    text: "Image Map",
+    onclick: () => openDialog(editor)
+  });
+
+  editor.addButton("tinymceImageMap", {
+    tooltip: 'Image Map',
+    icon: 'img-map-icon',
+    onclick: () => openDialog(editor)
   });
 };
 
