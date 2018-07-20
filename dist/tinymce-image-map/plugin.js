@@ -1980,6 +1980,7 @@ var mapHelper = {
     app.shapes.forEach(function (shape) {
       var area = shape.toMapArea();
       var node = Object.assign(editor.dom.create("area"), area);
+      node.style.cursor = 'text';
       map.append(node);
     });
   },
@@ -2028,6 +2029,9 @@ var view = {
     var map = editor.dom.select("map").find(function (item) {
       return "#" + item.name === img.useMap;
     });
+    if (!map) {
+      img.useMap = '';
+    }
     var areas = img.useMap === "" ? [] : _mapHelper2.default.load(Array.from(map.children));
     var canvas = document.getElementById("img-map-canvas");
     canvas.setAttribute("height", img.height);
@@ -2058,9 +2062,7 @@ var view = {
 
   destroy: function destroy(editor, img) {
     document.getElementById("map-url-input").blur();
-    if (document.app.shapes.length > 0) {
-      _mapHelper2.default.write(editor, img);
-    }
+    _mapHelper2.default.write(editor, img);
     document.app = {};
     document.getElementById("img-map-container").innerHTML = "";
   }
@@ -2116,17 +2118,32 @@ var openDialog = function openDialog(editor) {
 };
 
 var plugin = function plugin(editor) {
-  editor.addMenuItem("tinymceImageMap", {
-    icon: 'img-map-icon',
+  editor.on("init", function () {
+    editor.dom.select("area").forEach(function (area) {
+      return area.style.cursor = "text";
+    });
+  });
+
+  editor.on("click", function (e) {
+    if (e.target.nodeName === "AREA") {
+      var map = e.target.parentNode;
+      editor.selection.select(editor.dom.select("img").find(function (img) {
+        return img.useMap === "#" + map.name;
+      }));
+    }
+  });
+
+  editor.addMenuItem("imageMap", {
+    icon: "img-map-icon",
     text: "Image Map",
     onclick: function onclick() {
       return openDialog(editor);
     }
   });
 
-  editor.addButton("tinymceImageMap", {
-    tooltip: 'Image Map',
-    icon: 'img-map-icon',
+  editor.addButton("imageMap", {
+    tooltip: "Image Map",
+    icon: "img-map-icon",
     onclick: function onclick() {
       return openDialog(editor);
     }
@@ -2152,7 +2169,7 @@ var _plugin2 = _interopRequireDefault(_plugin);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-tinymce.PluginManager.add("tinymceImageMap", _plugin2.default);
+tinymce.PluginManager.add("imageMap", _plugin2.default);
 
 exports.default = _plugin2.default;
 

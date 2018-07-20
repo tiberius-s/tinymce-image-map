@@ -33,15 +33,28 @@ const openDialog = editor => {
 };
 
 const plugin = editor => {
-  editor.addMenuItem("tinymceImageMap", {
-    icon: 'img-map-icon',
+  editor.on("init", () => {
+    editor.dom.select("area").forEach(area => (area.style.cursor = "text"));
+  });
+
+  editor.on("click", e => {
+    if (e.target.nodeName === "AREA") {
+      let map = e.target.parentNode;
+      editor.selection.select(
+        editor.dom.select("img").find(img => img.useMap === "#" + map.name)
+      );
+    }
+  });
+
+  editor.addMenuItem("imageMap", {
+    icon: "img-map-icon",
     text: "Image Map",
     onclick: () => openDialog(editor)
   });
 
-  editor.addButton("tinymceImageMap", {
-    tooltip: 'Image Map',
-    icon: 'img-map-icon',
+  editor.addButton("imageMap", {
+    tooltip: "Image Map",
+    icon: "img-map-icon",
     onclick: () => openDialog(editor)
   });
 };
