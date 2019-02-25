@@ -1,5 +1,7 @@
-# tinymce-image-map for TinyMCE Plugin
+# tinymce-image-map for TinyMCE 4
 ### Plugin that enables you to draw shapes as image maps on an `img` through tinyMCE
+
+This plugin was written to provide a used to draw shapes on an image in an HTML document and add the url. When done, the plugin will generate a `map` element that contains `area` elements with `coords` and `shape` and `href` properties set that correspond to the images drawn. Note: the `target` ref is always set to `_blank`. When I wrote this plugin, the use case in mind was to allow a user to embed a link in an image that will be used in an HTML email. It's not responsive, not the best pracite, I know, but some are stuck and have to do things the old fashioned way. Hopefully this plugin helps fill that gap.
 
 ## Installation
 

@@ -2,17 +2,19 @@
   "name": "tinymce-image-map",
   "version": "0.0.4",
   "description": "tinymceImageMap TinyMCE plugin repo",
+  "author": "Tiberius Silivestru",
   "repository": {
     "type": "git",
     "url": "https://github.com/tiberius-s/tinymce-image-map.git"
   },
+  "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.config.dev.js --progress --open --hot",
     "lint": "eslint 'src/**/*.js'",
     "build": "webpack --config config/webpack.config.prod.js --progress",
     "test": "mocha --require @babel/register --require ./test/setup.js --recursive --reporter nyan"
   },
-  "author": "",
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.3.3",
     "@babel/preset-env": "^7.3.1",
@@ -36,7 +38,5 @@
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.0"
-  },
-  "dependencies": {},
-  "license": "MIT"
+  }
 }
