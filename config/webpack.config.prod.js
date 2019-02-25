@@ -1,39 +1,39 @@
-const path = require("path");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const pluginName = "tinymce-image-map";
+const pluginName = 'tinymce-image-map';
 
 module.exports = {
-  mode: "production",
+  mode: 'production',
   entry: {
-    plugin: "./src/index.js",
-    "plugin.min": "./src/index.js"
+    plugin: './src/index.js',
+    'plugin.min': './src/index.js'
   },
   output: {
-    path: path.join(__dirname, "../dist", pluginName),
-    filename: "[name].js"
+    path: path.join(__dirname, '../dist', pluginName),
+    filename: '[name].js'
   },
-  target: "web",
+  target: 'web',
   externals: {
-    canvas: "canvas"
+    canvas: 'canvas'
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: "babel-loader"
+        use: 'babel-loader'
       },
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: [{ loader: "style-loader" }, { loader: "css-loader" }]
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
       },
       {
         test: /\.(jpg|jpeg|png|gif|svg)/,
         use: {
-          loader: "url-loader",
+          loader: 'url-loader',
           options: {
             limit: 8000
           }
@@ -42,13 +42,14 @@ module.exports = {
       {
         test: /\.html$/,
         exclude: /(node_modules|static)/,
-        use: { loader: "html-loader" }
+        use: { loader: 'html-loader' }
       }
     ]
   },
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
+        sourceMap: true,
         include: /\.min\.js$/
       })
     ]
@@ -56,8 +57,8 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: path.join(__dirname, "../LICENSE"),
-        to: path.join(__dirname, "../dist", pluginName)
+        from: path.join(__dirname, '../LICENSE'),
+        to: path.join(__dirname, '../dist', pluginName)
       }
     ])
   ]
