@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.config.dev.js --progress --open --hot",
-    "lint": "eslint 'src/**/*.js'",
+    "lint": "eslint 'src/**/*.js' --fix",
     "build": "webpack --config config/webpack.config.prod.js --progress",
     "test": "mocha --require @babel/register --require ./test/setup.js --recursive --reporter nyan"
   },
@@ -26,10 +26,13 @@
     "copy-webpack-plugin": "^5.0.0",
     "css-loader": "^2.1.0",
     "eslint": "^5.14.1",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "jsdom": "^13.2.0",
     "mocha": "^6.0.1",
+    "prettier": "^1.16.4",
     "sinon": "^7.2.4",
     "sinon-chai": "^3.3.0",
     "style-loader": "^0.23.1",

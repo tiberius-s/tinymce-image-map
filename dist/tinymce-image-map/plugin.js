@@ -1540,7 +1540,7 @@ var mapHelper = {
     app.shapes.forEach(function (shape) {
       var area = shape.toMapArea();
       var node = Object.assign(editor.dom.create("area"), area);
-      node.style.cursor = 'text';
+      node.style.cursor = "text";
       map.append(node);
     });
   },
@@ -1916,7 +1916,7 @@ var view = {
     });
 
     if (!map) {
-      img.useMap = '';
+      img.useMap = "";
     }
 
     var areas = img.useMap === "" ? [] : utils_mapHelper.load(Array.from(map.children));

@@ -17,7 +17,7 @@ const view = {
       .select("map")
       .find(item => "#" + item.name === img.useMap);
     if (!map) {
-      img.useMap = '';
+      img.useMap = "";
     }
     const areas =
       img.useMap === "" ? [] : mapHelper.load(Array.from(map.children));

@@ -9,10 +9,7 @@ class Polygon extends Shape {
 
   draw() {
     this.path = new Path2D();
-    this.path.moveTo(
-      this.dimensions.shape[0].x,
-      this.dimensions.shape[0].y
-    );
+    this.path.moveTo(this.dimensions.shape[0].x, this.dimensions.shape[0].y);
     this.dimensions.shape.forEach(point => {
       this.path.lineTo(point.x, point.y);
     });
@@ -57,7 +54,7 @@ class Polygon extends Shape {
         y: Math.round(this.endPoint.y)
       });
     }
-    this.dimensions.shape = this.dimensions.shape ;
+    this.dimensions.shape = this.dimensions.shape;
     return this;
   }
 
