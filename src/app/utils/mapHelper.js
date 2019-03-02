@@ -34,7 +34,7 @@ const mapHelper = {
     return elements.map(el => new MapArea(el.shape, el.coords, el.href));
   },
   write: (editor, img) => {
-    const app = document.app;
+    const app = document.tinymceImageMap;
     const map =
       editor.dom.select("map").find(item => "#" + item.name === img.useMap) ||
       addMapElement(editor, img);

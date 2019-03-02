@@ -38,7 +38,7 @@ const template = `<!DOCTYPE html>
 `;
 
 const dom = new jsdom.JSDOM(template, {
-  FetchExternalResources: ['img']
+  FetchExternalResources: ["img"]
 });
 
 global.window = dom.window;

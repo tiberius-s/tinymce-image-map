@@ -77,7 +77,7 @@ function init() {
   img.width = "640";
   img.useMap = "testmap";
 
-  const canvas = document.createElement('canvas');
+  const canvas = document.createElement("canvas");
   canvas.height = img.height;
   canvas.width = img.width;
 
@@ -91,15 +91,15 @@ function init() {
   areaCircle.target = "_blank";
   map.appendChild(areaCircle);
 
-  const shapeSelect = document.createElement('input');
-  shapeSelect.type = 'radio';
-  shapeSelect.name = 'shapeSelect';
-  shapeSelect.id = 'shape1';
-  shapeSelect.value = 'circle';
+  const shapeSelect = document.createElement("input");
+  shapeSelect.type = "radio";
+  shapeSelect.name = "shapeSelect";
+  shapeSelect.id = "shape1";
+  shapeSelect.value = "circle";
 
-  const urlInput = document.createElement('input');
-  urlInput.type = 'url';
-  urlInput.name = 'map-url-input';
+  const urlInput = document.createElement("input");
+  urlInput.type = "url";
+  urlInput.name = "map-url-input";
 
   const areas = mapHelper.load(Array.from(map.children));
   const args = {

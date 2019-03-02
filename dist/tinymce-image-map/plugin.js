@@ -88,7 +88,7 @@
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"img-map-canvas-container\">\n  <canvas id=\"img-map-canvas\">\n    Please upgrade your browser to display this image.\n  </canvas>\n</div>\n<div id=\"img-map-actions\">\n  <span class=\"img-map-selection\">\n    <span class=\"img-map-shape-select\">\n      <input type=\"radio\" name=\"shapeSelect\" id=\"shape1\" value=\"circle\">\n      <label for=\"shape1\">Circle</label>\n    </span>\n    <span class=\"img-map-shape-select\">\n      <input type=\"radio\" name=\"shapeSelect\" id=\"shape2\" value=\"rectangle\">\n      <label for=\"shape2\">Rectangle</label>\n    </span>\n    <span class=\"img-map-shape-select\">\n      <input type=\"radio\" name=\"shapeSelect\" id=\"shape3\" value=\"polygon\">\n      <label for=\"shape3\">Polygon</label>\n    </span>\n  </span>\n  <span class=\"img-map-buttons\">\n    <button type=\"button\" class=\"img-map-btn\" onclick=\"app.clearCanvas(true)\">Clear</button>\n    <button type=\"button\" class=\"img-map-btn\" onclick=\"app.deleteMap()\">Delete Focused</button>\n  </span>\n</div>\n<form id=\"img-map-form\">\n  <label for=\"url\">URL: </label>\n  <input type=\"text\" id=\"map-url-input\" name=\"map-url-input\" class=\"img-map-url-input\" placeholder=\"https://www.validurl.com\"\n    required/>\n</form>\n<div id=\"img-map-hint\">Hold Shift and left click to finish drawing the polygon</div>";
+module.exports = "<div id=\"img-map-canvas-container\">\n  <canvas id=\"img-map-canvas\">\n    Please upgrade your browser to display this image.\n  </canvas>\n</div>\n<div id=\"img-map-actions\">\n  <span class=\"img-map-selection\">\n    <span class=\"img-map-shape-select\">\n      <input type=\"radio\" name=\"shapeSelect\" id=\"shape1\" value=\"circle\" />\n      <label for=\"shape1\">Circle</label>\n    </span>\n    <span class=\"img-map-shape-select\">\n      <input type=\"radio\" name=\"shapeSelect\" id=\"shape2\" value=\"rectangle\" />\n      <label for=\"shape2\">Rectangle</label>\n    </span>\n    <span class=\"img-map-shape-select\">\n      <input type=\"radio\" name=\"shapeSelect\" id=\"shape3\" value=\"polygon\" />\n      <label for=\"shape3\">Polygon</label>\n    </span>\n  </span>\n  <span class=\"img-map-buttons\">\n    <button type=\"button\" class=\"img-map-btn\" onclick=\"app.clearCanvas(true)\">Clear</button>\n    <button type=\"button\" class=\"img-map-btn\" onclick=\"app.deleteMap()\">Delete Focused</button>\n  </span>\n</div>\n<form id=\"img-map-form\">\n  <label for=\"url\">URL: </label>\n  <input\n    type=\"text\"\n    id=\"map-url-input\"\n    name=\"map-url-input\"\n    class=\"img-map-url-input\"\n    placeholder=\"https://www.validurl.com\"\n  />\n</form>\n<div id=\"img-map-hint\">Hold Shift and left click to finish drawing the polygon</div>\n";
 
 /***/ }),
 /* 1 */
@@ -1532,7 +1532,7 @@ var mapHelper = {
     });
   },
   write: function write(editor, img) {
-    var app = document.app;
+    var app = document.tinymceImageMap;
     var map = editor.dom.select("map").find(function (item) {
       return "#" + item.name === img.useMap;
     }) || addMapElement(editor, img);
@@ -1903,14 +1903,15 @@ var styles = __webpack_require__(1);
 
 
 var view = {
-  createDialogHtml: function createDialogHtml() {
+  createDialogHtml: function createDialogHtml(editor) {
     return new Promise(function (resolve) {
-      var container = document.getElementById("img-map-container");
+      var doc = getImageMapDocument(editor);
+      var container = doc.$("#img-map-container")[0];
       container.innerHTML = template_default.a;
-      resolve(container);
+      resolve(doc);
     });
   },
-  initApp: function initApp(editor, img) {
+  initApp: function initApp(editor, doc, img) {
     var map = editor.dom.select("map").find(function (item) {
       return "#" + item.name === img.useMap;
     });
@@ -1920,12 +1921,12 @@ var view = {
     }
 
     var areas = img.useMap === "" ? [] : utils_mapHelper.load(Array.from(map.children));
-    var canvas = document.getElementById("img-map-canvas");
+    var canvas = doc.byId("img-map-canvas");
     canvas.setAttribute("height", img.height);
     canvas.setAttribute("width", img.width);
-    var urlInput = document.getElementById("map-url-input");
-    var shapeSelectors = document.getElementsByName("shapeSelect");
-    var hint = document.getElementById("img-map-hint");
+    var urlInput = doc.byId("map-url-input");
+    var shapeSelectors = doc.byName("shapeSelect");
+    var hint = doc.byId("img-map-hint");
     var args = {
       canvas: canvas,
       hint: hint,
@@ -1943,16 +1944,34 @@ var view = {
       urlInput: urlInput
     };
     var app = new main(args);
-    document.app = app;
+    document.tinymceImageMap = app;
     app.init();
   },
   destroy: function destroy(editor, img) {
-    document.getElementById("map-url-input").blur();
+    var doc = getImageMapDocument(editor);
+    doc.byId("map-url-input").blur();
     utils_mapHelper.write(editor, img);
-    document.app = {};
-    document.getElementById("img-map-container").innerHTML = "";
+    document.tinymceImageMap = {};
+    doc.byId("img-map-container").innerHTML = "";
   }
 };
+
+function getImageMapDocument(editor) {
+  return editor.windowManager.getWindows().filter(function (win) {
+    return Array.from(win.$("#img-map-container")).length === 1;
+  }).map(function (win) {
+    win.byId = function (id) {
+      return this.$("#".concat(id))[0];
+    };
+
+    win.byName = function (name) {
+      return Array.from(this.$("[name=".concat(name, "]")));
+    };
+
+    return win;
+  }).pop();
+}
+
 /* harmony default export */ var utils_view = (view);
 // CONCATENATED MODULE: ./src/plugin.js
 
@@ -1982,8 +2001,8 @@ var plugin_openDialog = function openDialog(editor) {
         utils_view.destroy(editor, img);
       }
     });
-    utils_view.createDialogHtml().then(function () {
-      return utils_view.initApp(editor, img);
+    utils_view.createDialogHtml(editor).then(function (doc) {
+      return utils_view.initApp(editor, doc, img);
     });
   }
 };
