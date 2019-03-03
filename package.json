@@ -1,13 +1,24 @@
 {
   "name": "tinymce-image-map",
   "version": "0.0.6",
-  "description": "tinymceImageMap TinyMCE plugin repo",
+  "description": "TinyMCE plugin that generates image map for HTML content",
   "author": "Tiberius Silivestru",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/tiberius-s/tinymce-image-map.git"
   },
-  "license": "MIT",
+  "homepage": "https://github.com/tiberius-s/tinymce-image-map",
+  "bugs": {
+    "url": "https://github.com/tiberius-s/tinymce-image-map/issues"
+  },
+  "keywords": [
+    "html",
+    "imagemap",
+    "tinymce"
+  ],
+  "main": "dist/tinymce-image-map/plugin.min.js",
+  "unpkg": "https://unpkg.com/tinymce-image-map/dist/tinymce-image-map/plugin.min.js",
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.config.dev.js --progress --open --hot",
     "lint": "eslint 'src/**/*.js' --fix",
