@@ -1,6 +1,6 @@
 {
   "name": "tinymce-image-map",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "TinyMCE plugin that generates image map for HTML content",
   "author": "Tiberius Silivestru",
   "license": "MIT",
