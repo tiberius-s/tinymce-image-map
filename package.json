@@ -1,56 +1,56 @@
 {
-  "name": "tinymce-image-map",
-  "version": "0.0.9",
-  "description": "TinyMCE plugin that generates image map for HTML content",
-  "author": "Tiberius Silivestru",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tiberius-s/tinymce-image-map.git"
-  },
-  "homepage": "https://github.com/tiberius-s/tinymce-image-map",
-  "bugs": {
-    "url": "https://github.com/tiberius-s/tinymce-image-map/issues"
-  },
-  "keywords": [
-    "html",
-    "imagemap",
-    "tinymce"
-  ],
-  "main": "dist/tinymce-image-map/plugin.min.js",
-  "unpkg": "https://unpkg.com/tinymce-image-map/dist/tinymce-image-map/plugin.min.js",
-  "scripts": {
-    "start": "webpack-dev-server --config config/webpack.config.dev.js --progress --open --hot",
-    "lint": "eslint 'src/**/*.js' --fix",
-    "build": "webpack --config config/webpack.config.prod.js --progress",
-    "test": "mocha --require @babel/register --require ./test/setup.js --recursive --reporter nyan"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "^7.3.3",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/register": "^7.0.0",
-    "babel-loader": "^8.0.5",
-    "canvas": "^2.3.1",
-    "canvas-5-polyfill": "^0.1.5",
-    "chai": "^4.2.0",
-    "copy-webpack-plugin": "^5.0.0",
-    "css-loader": "^2.1.0",
-    "eslint": "^5.14.1",
-    "eslint-config-prettier": "^4.0.0",
-    "eslint-plugin-prettier": "^3.0.1",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
-    "jsdom": "^13.2.0",
-    "mocha": "^6.1.4",
-    "prettier": "^1.16.4",
-    "sinon": "^7.2.4",
-    "sinon-chai": "^3.3.0",
-    "style-loader": "^0.23.1",
-    "terser-webpack-plugin": "^1.2.2",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.2.0"
-  }
+    "name": "tinymce-image-map",
+    "version": "0.0.9",
+    "description": "TinyMCE plugin that generates image map for HTML content",
+    "author": "Tiberius Silivestru",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tiberius-s/tinymce-image-map.git"
+    },
+    "homepage": "https://github.com/tiberius-s/tinymce-image-map",
+    "bugs": {
+        "url": "https://github.com/tiberius-s/tinymce-image-map/issues"
+    },
+    "keywords": [
+        "html",
+        "imagemap",
+        "tinymce"
+    ],
+    "main": "dist/tinymce-image-map/plugin.min.js",
+    "unpkg": "https://unpkg.com/tinymce-image-map/dist/tinymce-image-map/plugin.min.js",
+    "scripts": {
+        "start": "webpack-dev-server --config config/webpack.config.dev.js --progress --open --hot",
+        "lint": "eslint 'src/**/*.js' --fix",
+        "build": "webpack --config config/webpack.config.prod.js --progress",
+        "test": "mocha --require @babel/register --require ./test/setup.js --recursive --reporter nyan"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@babel/core": "^7.3.3",
+        "@babel/preset-env": "^7.3.1",
+        "@babel/register": "^7.0.0",
+        "babel-loader": "^8.0.5",
+        "canvas": "^2.5.0",
+        "canvas-5-polyfill": "^0.1.5",
+        "chai": "^4.2.0",
+        "copy-webpack-plugin": "^5.0.0",
+        "css-loader": "^2.1.0",
+        "eslint": "^5.14.1",
+        "eslint-config-prettier": "^4.0.0",
+        "eslint-plugin-prettier": "^3.0.1",
+        "html-loader": "^0.5.5",
+        "html-webpack-plugin": "^3.2.0",
+        "jsdom": "^13.2.0",
+        "mocha": "^6.1.4",
+        "prettier": "^1.16.4",
+        "sinon": "^7.2.4",
+        "sinon-chai": "^3.3.0",
+        "style-loader": "^0.23.1",
+        "terser-webpack-plugin": "^1.2.2",
+        "url-loader": "^1.1.2",
+        "webpack": "^4.29.5",
+        "webpack-cli": "^3.2.3",
+        "webpack-dev-server": "^3.2.0"
+    }
 }

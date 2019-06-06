@@ -1,5 +1,4 @@
 import jsdom from "jsdom";
-import "canvas";
 import "canvas-5-polyfill";
 
 const template = `<!DOCTYPE html>
